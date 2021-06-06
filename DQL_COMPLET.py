@@ -346,7 +346,7 @@ class ENV:
         self.nb_objets = nb_objet
         self.size = size
         self.initset = initset
-        self.perte = -1000/(size[0]*size[1])
+        self.perte = -100/(size[0]*size[1])
         self.done = False
 
         if initset:
