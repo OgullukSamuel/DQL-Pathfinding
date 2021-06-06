@@ -158,8 +158,9 @@ class DQN(tf.Module):
                 tf.keras.layers.Dense(actionspace, kernel_initializer=initializer),
                 tf.keras.layers.Lambda(lambda a: a[:, :] - tf.keras.backend.mean(a[:, :], keepdims=True),output_shape=(actionspace,))],name="Advantage_network")(convo)
 
-            output = tf.keras.layers.Add()([value_net, advantage_net])
-
+            add = tf.keras.layers.Add()([value_net, advantage_net])
+            output = tf.keras.layers.Dense(actionspace)(add)
+            
             self.model = tf.keras.Model(input, output,name=named)
             self.model.compile(optimizer=opti, loss=lossing, metrics=metrique)
             tf.keras.utils.plot_model(self.model, to_file='réseau.png')
